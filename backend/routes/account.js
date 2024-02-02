@@ -1,23 +1,20 @@
 const express=require("express");
-const Account=require("../db");
+const {Account, User}=require("../db")
 const { authMiddleware } = require("../middleware");
-
+const { default: mongoose } = require('mongoose');
 
 const router=express.Router();
 
-router.get("/balance", authMiddleware , async (req,res)=>{
-    const account=await Account.findOne({
+router.get("/balance", authMiddleware, async (req, res) => {
+    const account = await Account.findOne({
         userId: req.userId
-    })
-
-    if(!account){
-        res.json({message: "User not found"});
-    }
+    });
+    console.log(account)
 
     res.json({
         balance: account.balance
     })
-})
+});
 
 
 router.post("/transfer", authMiddleware, async (req,res)=>{

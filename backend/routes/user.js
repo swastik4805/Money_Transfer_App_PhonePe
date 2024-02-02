@@ -3,7 +3,7 @@ const zod=require("zod");
 const router=express.Router();
 const { User, Account } = require("../db");
 // const jwt = require('jsonwebtoken');
-const {jwt} = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = require("../config");
 const { authMiddleware } =require("../middleware");
@@ -17,7 +17,7 @@ const signupBody = zod.object({
 })
 
 router.post("/signup", async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const { success } = signupBody.safeParse(req.body)
     if (!success) {
         return res.status(411).json({
@@ -45,7 +45,7 @@ router.post("/signup", async (req, res) => {
 
     await Account.create({
         userId,
-        balance: 1 + Math.random() * 10000
+        balance: 1000
     })
     // console.log(JWT_SECRET)
     const token = jwt.sign({
@@ -67,7 +67,7 @@ const signinSchema=zod.object({
 
 
 router.post("/signin", async (req,res)=>{
-    
+    // console.log(req);
     const success=signinSchema.safeParse(req.body);
     if(!success){
         res.status(411).json({
