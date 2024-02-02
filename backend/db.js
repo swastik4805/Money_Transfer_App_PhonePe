@@ -26,7 +26,7 @@ const UserSchema=new mongoose.Schema({
     password:{
         type:String,
         require: true,
-        minLength: 6
+        minLength: 3
     }
 })
 const User=mongoose.model("User", UserSchema);
